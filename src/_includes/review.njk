@@ -1,0 +1,113 @@
+---
+layout: base.njk
+---
+
+{% from "card.njk" import reviewCard %}
+
+<article>
+  <div class="wrap wrap-narrow review-header">
+    <p class="breadcrumb">
+      <a href="/">Home</a>
+      {% if category %} / <a href="/{{ category | toSlug }}/">{{ category }}</a>{% endif %}
+      {% if subcategory %} / <a href="/{{ category | toSlug }}/{{ subcategory | toSlug }}/">{{ subcategory }}</a>{% endif %}
+    </p>
+
+    {% if brand %}<p class="review-brand">{{ brand }}</p>{% endif %}
+    <h1>{{ title }}</h1>
+
+    {% if rating %}
+      <p>
+        <span class="rating-big">
+          <span class="stars" style="--pct: {{ rating | starPercent }}%" role="img"
+            aria-label="Rated {{ rating }} out of 5">★★★★★</span>
+          <span class="rating-number">{{ rating }} / 5</span>
+        </span>
+      </p>
+    {% endif %}
+
+    {% if skinTypes.length %}
+      <ul class="tag-row" style="justify-content: center; margin-top: 18px;">
+        {% for tag in skinTypes %}<li><span class="tag tag-muted">{{ tag }}</span></li>{% endfor %}
+      </ul>
+    {% endif %}
+
+    <p class="review-meta">
+      <time datetime="{{ page.date | isoDate }}">{{ page.date | readableDate }}</time>
+    </p>
+  </div>
+
+  <div class="wrap wrap-narrow">
+    {% if image %}
+      <div class="review-hero"><img src="{{ image }}" alt="{{ title }}" /></div>
+    {% endif %}
+
+    {# ---------- Product info box ---------- #}
+    {% if brand or price or size or keyIngredients or fullIngredients or whereToBuy or subcategory or skinTypes.length %}
+      <aside class="product-box">
+        <h2>Product details</h2>
+        <dl class="spec-list">
+          {% if brand %}<dt>Brand</dt><dd>{{ brand }}</dd>{% endif %}
+          {% if subcategory %}<dt>Type</dt><dd>{{ subcategory }}</dd>{% endif %}
+          {% if price %}<dt>Price</dt><dd>{{ price }}</dd>{% endif %}
+          {% if size %}<dt>Size</dt><dd>{{ size }}</dd>{% endif %}
+          {% if keyIngredients %}<dt>Key ingredients</dt><dd>{{ keyIngredients }}</dd>{% endif %}
+          {% if fullIngredients %}<dt>Full INCI</dt><dd>{{ fullIngredients }}</dd>{% endif %}
+          {% if skinTypes.length %}<dt>Best for</dt><dd>{{ skinTypes | join(", ") }}</dd>{% endif %}
+          {% if repurchase is defined %}
+            <dt>Would repurchase</dt><dd>{% if repurchase %}Yes{% else %}No{% endif %}</dd>
+          {% endif %}
+        </dl>
+
+        {% if whereToBuy %}
+          <a class="buy-link" href="{{ whereToBuy }}" rel="nofollow noopener" target="_blank">Where I bought it</a>
+        {% endif %}
+      </aside>
+    {% endif %}
+
+    {# ---------- The review body ---------- #}
+    <div class="prose">
+      {{ content | safe }}
+    </div>
+
+    {# ---------- Pros & cons ---------- #}
+    {% if pros.length or cons.length %}
+      <section class="proscons">
+        {% if pros.length %}
+          <div class="pc-panel pc-pros">
+            <h3>What I loved</h3>
+            <ul>{% for item in pros %}<li>{{ item }}</li>{% endfor %}</ul>
+          </div>
+        {% endif %}
+        {% if cons.length %}
+          <div class="pc-panel pc-cons">
+            <h3>What I didn't</h3>
+            <ul>{% for item in cons %}<li>{{ item }}</li>{% endfor %}</ul>
+          </div>
+        {% endif %}
+      </section>
+    {% endif %}
+
+    {# ---------- Final verdict ---------- #}
+    {% if verdict %}
+      <section class="verdict">
+        <h3>The verdict</h3>
+        <p>{{ verdict }}</p>
+      </section>
+    {% endif %}
+  </div>
+
+  {# ---------- More from the same category ---------- #}
+  {% set related = collections.reviews | whereData("category", category) | excludeUrl(page.url) %}
+
+  {% if related.length %}
+    <div class="wrap section">
+      <div class="section-head">
+        <h2>More {{ category }}</h2>
+        <a href="/{{ category | toSlug }}/">See all →</a>
+      </div>
+      <ul class="card-grid">
+        {% for item in related | limit(3) %}{{ reviewCard(item) }}{% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+</article>

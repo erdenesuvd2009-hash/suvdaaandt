@@ -1,0 +1,218 @@
+# yaml-language-server: $schema=https://unpkg.com/@sveltia/cms/schema/sveltia-cms.json
+
+backend:
+  name: github
+  repo: erdenesuvd2009-hash/suvdaaandt
+  branch: main
+
+# Where uploaded photos are saved, and how the site links to them.
+media_folder: src/uploads
+public_folder: /uploads
+
+collections:
+  # =========================================================================
+  # REVIEWS
+  # =========================================================================
+  - name: reviews
+    label: Reviews
+    label_singular: Review
+    description: Your product reviews. Each one becomes its own page.
+    folder: src/reviews
+    create: true
+    extension: md
+    format: yaml-frontmatter
+    slug: '{{slug}}'
+    identifier_field: title
+    summary: '{{brand}} — {{title}}'
+    sortable_fields: [date, title, rating]
+    fields:
+      - label: Product name
+        name: title
+        widget: string
+        hint: The name of the product, e.g. Low pH Good Morning Gel Cleanser
+
+      - label: Brand
+        name: brand
+        widget: string
+        required: false
+
+      - label: Date
+        name: date
+        widget: datetime
+        type: date
+        picker_utc: true
+        default: '{{now}}'
+
+      # -- Category -----------------------------------------------------
+      # To add a whole new category, add it to this list AND give it
+      # subcategories in the next field. The website menu updates itself.
+      - label: Category
+        name: category
+        widget: select
+        options:
+          - Skincare
+          - Makeup
+          - Bodycare
+
+      # -- Subcategory --------------------------------------------------
+      # To add a new product type, just add one line to this list.
+      - label: Product type
+        name: subcategory
+        widget: select
+        options:
+          # Skincare
+          - Cleanser
+          - Oil Cleanser
+          - Micellar Water
+          - Toner
+          - Essence
+          - Serum
+          - Ampoule
+          - Cream
+          - Lotion
+          - Eye Cream
+          - Mask
+          - Sunscreen
+          - Exfoliant
+          - Spot Treatment
+          # Makeup
+          - Foundation
+          - Cushion
+          - Concealer
+          - Powder
+          - Blush
+          - Bronzer
+          - Contour
+          - Highlighter
+          - Primer
+          - Mascara
+          - Lip Product
+          - Setting Spray
+          # Bodycare
+          - Body Lotion
+          - Shower Gel
+          - Body Wash
+          - Body Scrub
+          - Body Oil
+          - Hand Cream
+          - Deodorant
+
+      - label: Rating (out of 5)
+        name: rating
+        widget: number
+        value_type: float
+        min: 0
+        max: 5
+        step: 0.5
+        default: 4
+
+      - label: Main photo
+        name: image
+        widget: image
+        required: false
+        hint: Shown at the top of the review and on the card in listings.
+
+      - label: One-line summary
+        name: summary
+        widget: text
+        required: false
+        hint: A short sentence shown on the card in listings.
+
+      - label: Skin types it suits
+        name: skinTypes
+        widget: select
+        multiple: true
+        required: false
+        options:
+          - Oily
+          - Dry
+          - Combination
+          - Normal
+          - Sensitive
+          - Acne-prone
+          - Dehydrated
+          - Mature
+          - Rosacea-prone
+          - All skin types
+
+      # -- Product details box ------------------------------------------
+      - label: Price
+        name: price
+        widget: string
+        required: false
+        hint: 'e.g. ₮45,000'
+
+      - label: Size
+        name: size
+        widget: string
+        required: false
+        hint: 'e.g. 150 ml'
+
+      - label: Key ingredients
+        name: keyIngredients
+        widget: string
+        required: false
+        hint: 'e.g. Niacinamide 5%, Panthenol, Centella'
+
+      - label: Full ingredients (INCI)
+        name: fullIngredients
+        widget: text
+        required: false
+
+      - label: Where to buy (link)
+        name: whereToBuy
+        widget: string
+        required: false
+        hint: Paste a full URL starting with https
+
+      - label: Would you repurchase?
+        name: repurchase
+        widget: boolean
+        required: false
+        default: true
+
+      # -- Pros and cons -------------------------------------------------
+      - label: Pros
+        name: pros
+        widget: list
+        required: false
+        field: { label: Pro, name: pro, widget: string }
+
+      - label: Cons
+        name: cons
+        widget: list
+        required: false
+        field: { label: Con, name: con, widget: string }
+
+      # -- The review itself ---------------------------------------------
+      - label: The review
+        name: body
+        widget: markdown
+
+      - label: Final verdict
+        name: verdict
+        widget: text
+        required: false
+        hint: A short closing paragraph, shown in a highlighted box.
+
+      - label: Save as draft (hide from the site)
+        name: draft
+        widget: boolean
+        required: false
+        default: false
+
+  # =========================================================================
+  # PAGES
+  # =========================================================================
+  - name: pages
+    label: Pages
+    files:
+      - label: About
+        name: about
+        file: src/about.md
+        fields:
+          - { label: Title, name: title, widget: string }
+          - { label: Description, name: description, widget: text, required: false }
+          - { label: Body, name: body, widget: markdown }
+          - { label: Layout, name: layout, widget: hidden, default: page.njk }
+          - { label: Permalink, name: permalink, widget: hidden, default: /about/ }

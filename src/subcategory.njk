@@ -1,0 +1,29 @@
+---
+layout: base.njk
+pagination:
+  data: collections.subcategoryList
+  size: 1
+  alias: sub
+permalink: "/{{ sub.categorySlug }}/{{ sub.slug }}/"
+eleventyComputed:
+  title: "{{ sub.name }}"
+  description: "{{ sub.name }} reviews in {{ sub.category }}."
+---
+
+{% from "card.njk" import reviewCard %}
+
+{% set items = collections.reviews | whereData("category", sub.category) | whereData("subcategory", sub.name) %}
+
+<div class="wrap wrap-narrow page-head">
+  <p class="breadcrumb">
+    <a href="/">Home</a> / <a href="/{{ sub.categorySlug }}/">{{ sub.category }}</a> / {{ sub.name }}
+  </p>
+  <h1>{{ sub.name }}</h1>
+  <p>{{ items.length }} review{% if items.length != 1 %}s{% endif %}</p>
+</div>
+
+<div class="wrap">
+  <ul class="card-grid">
+    {% for item in items %}{{ reviewCard(item) }}{% endfor %}
+  </ul>
+</div>

@@ -1,0 +1,31 @@
+---
+layout: base.njk
+title: All reviews
+description: Every skincare, makeup and bodycare review on the site.
+permalink: /reviews/
+---
+
+{% from "card.njk" import reviewCard %}
+
+<div class="wrap wrap-narrow page-head">
+  <h1>All reviews</h1>
+  <p>{{ collections.reviews.length }} review{% if collections.reviews.length != 1 %}s{% endif %}, newest first.</p>
+</div>
+
+<div class="wrap">
+  <input
+    class="search-bar"
+    type="search"
+    data-search
+    placeholder="Search by product, brand or skin type…"
+    aria-label="Search reviews"
+  />
+
+  <ul class="card-grid">
+    {% for item in collections.reviews %}{{ reviewCard(item) }}{% endfor %}
+  </ul>
+
+  <div class="empty-state is-hidden" data-search-empty>
+    <p>No reviews match that search.</p>
+  </div>
+</div>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% if title %}{{ title }} · {{ site.name }}{% else %}{{ site.name }}{% endif %}</title>
+    <meta name="description" content="{{ description or summary or site.description }}" />
+    <link rel="canonical" href="{{ site.url }}{{ page.url }}" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="{{ site.name }}" />
+    <meta property="og:title" content="{{ title or site.name }}" />
+    <meta property="og:description" content="{{ description or summary or site.description }}" />
+    <meta property="og:url" content="{{ site.url }}{{ page.url }}" />
+    {% if image %}<meta property="og:image" content="{{ site.url }}{{ image }}" />{% endif %}
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>🌸</text></svg>" />
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="wrap header-inner">
+        <a class="logo" href="/">{{ site.name }}</a>
+
+        <nav class="nav" aria-label="Main">
+          <a class="nav-link" href="/">Home</a>
+
+          {% for cat in collections.categoryList %}
+            {% if cat.subs.length %}
+              <details class="dropdown">
+                <summary>{{ cat.name }}</summary>
+                <div class="dropdown-menu">
+                  <a class="menu-all" href="/{{ cat.slug }}/">All {{ cat.name }}<span class="count">{{ cat.count }}</span></a>
+                  {% for sub in cat.subs %}
+                    <a href="/{{ cat.slug }}/{{ sub.slug }}/">{{ sub.name }}<span class="count">{{ sub.count }}</span></a>
+                  {% endfor %}
+                </div>
+              </details>
+            {% else %}
+              <a class="nav-link" href="/{{ cat.slug }}/">{{ cat.name }}</a>
+            {% endif %}
+          {% endfor %}
+
+          <a class="nav-link" href="/reviews/">All reviews</a>
+          <a class="nav-link" href="/about/">About</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      {{ content | safe }}
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <a class="logo" href="/">{{ site.name }}</a>
+        <ul class="footer-links">
+          <li><a href="/reviews/">All reviews</a></li>
+          <li><a href="/about/">About</a></li>
+          {% if site.social.instagram %}<li><a href="{{ site.social.instagram }}" rel="me noopener">Instagram</a></li>{% endif %}
+          {% if site.social.tiktok %}<li><a href="{{ site.social.tiktok }}" rel="me noopener">TikTok</a></li>{% endif %}
+          {% if site.social.email %}<li><a href="mailto:{{ site.social.email }}">Email</a></li>{% endif %}
+        </ul>
+        <p class="footer-note">
+          © {{ build.year }} {{ site.author }}. All reviews are my own opinions, written after personal use.
+        </p>
+      </div>
+    </footer>
+
+    <script src="/js/site.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,5 @@
+Photos you upload through the CMS are saved in this folder.
+
+This file only exists so that the folder itself gets uploaded to GitHub —
+empty folders are skipped. You can delete it once you've uploaded your
+first photo.

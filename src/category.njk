@@ -1,0 +1,36 @@
+---
+layout: base.njk
+pagination:
+  data: collections.categoryList
+  size: 1
+  alias: cat
+permalink: "/{{ cat.slug }}/"
+eleventyComputed:
+  title: "{{ cat.name }}"
+  description: "Every {{ cat.name }} review on the site."
+---
+
+{% from "card.njk" import reviewCard %}
+
+{% set items = collections.reviews | whereData("category", cat.name) %}
+
+<div class="wrap wrap-narrow page-head">
+  <p class="breadcrumb"><a href="/">Home</a> / {{ cat.name }}</p>
+  <h1>{{ cat.name }}</h1>
+  <p>{{ items.length }} review{% if items.length != 1 %}s{% endif %}</p>
+</div>
+
+<div class="wrap">
+  {% if cat.subs.length %}
+    <ul class="tag-row" style="justify-content: center; margin-bottom: 40px;">
+      <li><span class="tag">All</span></li>
+      {% for sub in cat.subs %}
+        <li><a class="tag tag-muted" href="/{{ cat.slug }}/{{ sub.slug }}/">{{ sub.name }} ({{ sub.count }})</a></li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  <ul class="card-grid">
+    {% for item in items %}{{ reviewCard(item) }}{% endfor %}
+  </ul>
+</div>

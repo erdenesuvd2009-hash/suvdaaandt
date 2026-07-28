@@ -1,0 +1,59 @@
+---
+layout: base.njk
+---
+
+{% from "card.njk" import reviewCard %}
+
+<section class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Unsponsored · one person · one face</span>
+    <h1>{{ site.name }}</h1>
+    <p>{{ site.tagline }}</p>
+  </div>
+</section>
+
+<div class="wrap">
+
+  {% set latest = collections.reviews | limit(6) %}
+
+  {% if latest.length %}
+    <section class="section">
+      <div class="section-head">
+        <h2>Latest reviews</h2>
+        <a href="/reviews/">See all {{ collections.reviews.length }} →</a>
+      </div>
+      <ul class="card-grid">
+        {% for item in latest %}{{ reviewCard(item) }}{% endfor %}
+      </ul>
+    </section>
+  {% else %}
+    <section class="section">
+      <div class="empty-state">
+        <p><strong>No reviews yet.</strong></p>
+        <p>Go to <code>/admin/</code> to write your first one.</p>
+      </div>
+    </section>
+  {% endif %}
+
+  {% if collections.categoryList.length %}
+    <section class="section">
+      <div class="section-head">
+        <h2>Browse by category</h2>
+      </div>
+      <ul class="cat-grid">
+        {% for cat in collections.categoryList %}
+          <li class="cat-card">
+            <h3><a href="/{{ cat.slug }}/">{{ cat.name }}</a></h3>
+            <span class="count">{{ cat.count }} review{% if cat.count != 1 %}s{% endif %}</span>
+            <ul class="tag-row">
+              {% for sub in cat.subs %}
+                <li><a class="tag" href="/{{ cat.slug }}/{{ sub.slug }}/">{{ sub.name }}</a></li>
+              {% endfor %}
+            </ul>
+          </li>
+        {% endfor %}
+      </ul>
+    </section>
+  {% endif %}
+
+</div>

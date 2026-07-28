@@ -1,0 +1,46 @@
+{# Reusable review card. Used by the home page, category pages and the review index. #}
+
+{% macro reviewCard(item) %}
+  {% set d = item.data %}
+  <li
+    class="card"
+    data-search-item="{{ d.title }} {{ d.brand }} {{ d.category }} {{ d.subcategory }} {{ (d.skinTypes or []) | join(' ') }}"
+  >
+    <div class="card-thumb">
+      {% if d.image %}
+        <img src="{{ d.image }}" alt="{{ d.title }}" loading="lazy" />
+      {% else %}
+        <span class="initial" aria-hidden="true">{{ (d.brand or d.title) | truncate(1, true, "") }}</span>
+      {% endif %}
+    </div>
+
+    <div class="card-body">
+      {% if d.brand %}<span class="card-brand">{{ d.brand }}</span>{% endif %}
+
+      <h3 class="card-title"><a href="{{ item.url }}">{{ d.title }}</a></h3>
+
+      {% if d.summary %}<p class="card-summary">{{ d.summary }}</p>{% endif %}
+
+      {% if d.subcategory %}
+        <ul class="tag-row">
+          <li>
+            <a class="tag" href="/{{ d.category | toSlug }}/{{ d.subcategory | toSlug }}/">{{ d.subcategory }}</a>
+          </li>
+        </ul>
+      {% endif %}
+
+      <div class="card-foot">
+        {% if d.rating %}
+          <span class="rating-inline">
+            <span class="stars" style="--pct: {{ d.rating | starPercent }}%" role="img"
+              aria-label="Rated {{ d.rating }} out of 5">★★★★★</span>
+            <span class="rating-number">{{ d.rating }}</span>
+          </span>
+        {% else %}
+          <span></span>
+        {% endif %}
+        <time class="card-date" datetime="{{ item.date | isoDate }}">{{ item.date | readableDate }}</time>
+      </div>
+    </div>
+  </li>
+{% endmacro %}

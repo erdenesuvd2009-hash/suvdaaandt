@@ -9,7 +9,7 @@ Hi!
 
 Every review on this site is written after I've used the product by myself, usually for at least four to six weeks. Nothing here is sponsored, gifted or paid from a brand, and I buy everything with my own money. If that ever changes, I'll say so at the top of the review.
 
-## How I rate things
+## How I rate products
 
 I score out of 5, in half stars:
 

@@ -1,13 +1,13 @@
 ---
-layout: page.njk
 title: About
 description: Who writes these reviews and how they are tested.
+layout: page.njk
 permalink: /about/
 ---
 
-Hi — I'm the only person who writes here.
+Hi!
 
-Every review on this site is written after I've used the product myself, usually for at least four to six weeks. Nothing here is sponsored, gifted or paid for by a brand, and I buy everything with my own money. If that ever changes, I'll say so at the top of the review.
+Every review on this site is written after I've used the product by myself, usually for at least four to six weeks. Nothing here is sponsored, gifted or paid from a brand, and I buy everything with my own money. If that ever changes, I'll say so at the top of the review.
 
 ## How I rate things
 
@@ -23,4 +23,4 @@ A rating only means something next to a skin type, so I tag every review with th
 
 ## A note
 
-I'm not a dermatologist or an esthetician. These are personal impressions, not medical advice. If something on your skin is painful, spreading or not improving, please see a professional rather than taking product advice from a blog.
+I'm not a dermatologist or an esthetician. These are personal impressions, not medical advice. If something on your skin is painful, spreading or not improving, please see a professional.

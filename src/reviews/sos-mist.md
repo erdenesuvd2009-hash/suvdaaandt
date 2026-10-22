@@ -11,7 +11,7 @@ skinTypes:
   - All skin types
   - Acne-prone
 price: 28$
-size: '120'
+size: 120 ml
 keyIngredients: Hypochlorous Acid,
 fullIngredients: Water, Sodium Chloride, Hypochlorous Acid
 whereToBuy: https://share.google/lcpXfgnxL6ksMYexJ
@@ -22,4 +22,4 @@ verdict: Highly recommended
 draft: false
 ---
 
-HOLY GRAIL omg if you have a phobia of having acne like me, you have to try it. It will kill the bacteria that cause acne. It can be a little drying, so if you have dry skin, test it before you buy it.
+HOLY GRAIL: If you have a phobia of having acne like me, you have to try it. It will kill the bacteria that cause acne. However, it can be a little drying, so if you have dry skin, test it before you buy it.

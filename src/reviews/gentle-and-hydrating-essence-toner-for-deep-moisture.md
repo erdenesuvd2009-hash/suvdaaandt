@@ -22,4 +22,4 @@ verdict: ''
 draft: false
 ---
 
-The texture was really watery and gentle on skin and really minimal ingredients that helps recover skin barrier highly recommended.
+The texture was really watery and gentle on the skin, and it has really minimal ingredients that help recover the skin barrier, highly recommended.

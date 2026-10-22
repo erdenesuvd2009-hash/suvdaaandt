@@ -583,37 +583,112 @@ a.tag:hover {
 }
 
 .prose {
-  font-size: 1.03rem;
+  font-size: 1.09rem;
+  line-height: 1.78;
 }
+
+/* Trim the gap at the very top and bottom of the writing */
+.prose > *:first-child {
+  margin-top: 0;
+}
+.prose > *:last-child {
+  margin-bottom: 0;
+}
+
+/* The opening paragraph reads as an intro, slightly larger */
+.prose > p:first-of-type {
+  font-size: 1.22rem;
+  line-height: 1.62;
+  margin-bottom: 1.3em;
+}
+
+.prose p {
+  margin: 0 0 1.45em;
+  text-wrap: pretty;
+}
+
 .prose h2 {
-  margin-top: 2.2em;
+  font-size: 1.58rem;
+  margin-top: 2.4em;
+  margin-bottom: 0.5em;
+  text-wrap: balance;
 }
 .prose h3 {
-  margin-top: 1.8em;
+  font-size: 1.22rem;
+  margin-top: 2em;
+  margin-bottom: 0.45em;
+  text-wrap: balance;
 }
+
+/* A heading and the paragraph under it belong together */
+.prose h2 + p,
+.prose h3 + p {
+  margin-top: 0;
+}
+
+.prose strong {
+  font-weight: 600;
+}
+
+.prose a {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--pink-soft);
+  transition: text-decoration-color 0.18s ease;
+}
+.prose a:hover {
+  text-decoration-color: var(--rose);
+}
+
 .prose img {
   border-radius: var(--radius);
-  margin: 2em 0;
+  margin: 2.2em 0;
 }
+
 .prose blockquote {
-  margin: 2em 0;
-  padding: 4px 0 4px 24px;
+  margin: 2.2em 0;
+  padding: 2px 0 2px 26px;
   border-left: 3px solid var(--pink-soft);
   color: var(--ink-soft);
   font-style: italic;
+  font-size: 1.1rem;
 }
+
 .prose ul,
 .prose ol {
-  padding-left: 1.3em;
+  padding-left: 1.25em;
+  margin: 0 0 1.45em;
 }
 .prose li {
-  margin-bottom: 0.4em;
+  margin-bottom: 0.55em;
+  padding-left: 0.15em;
 }
+.prose li::marker {
+  color: var(--pink);
+}
+
+.prose hr {
+  margin: 2.6em 0;
+}
+
 .prose code {
   background: var(--blush);
   padding: 2px 6px;
   border-radius: 6px;
   font-size: 0.9em;
+}
+
+@media (max-width: 720px) {
+  .prose {
+    font-size: 1.04rem;
+  }
+  .prose > p:first-of-type {
+    font-size: 1.14rem;
+  }
+  .prose h2 {
+    font-size: 1.4rem;
+  }
 }
 
 /* --------------------------------------------------- product info panel */

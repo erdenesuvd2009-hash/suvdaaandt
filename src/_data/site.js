@@ -1,7 +1,7 @@
 // Edit this file to change your site name, tagline and links.
 module.exports = {
   // Your site name, shown in the header and browser tab.
-  name: "SNotes by Suvdaa",
+  name: "Notes by Suvdaa",
 
   // Short tagline under the site name on the home page.
   tagline: "For everyone who wants an honest review.",
